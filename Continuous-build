@@ -1,0 +1,80 @@
+def test = [:]
+
+test["install CentOS"] = {
+    build job: 'Continuous/Install-CentOs-6.5'
+}
+test["install Ubnuntu"] = {
+    build job: 'Continuous/install-ubuntu-14-04'
+}
+test["smoke test"] = {
+    build job: 'Continuous/Smoke_test_Cit'
+    sh "echo run smoke test CIT"
+    
+}
+test["Decommission nodes"] = {
+    build job: 'Continuous/Decommission-nodes'
+    sh "echo run smoke test FIT"
+    
+}
+//test["install Windows"] = {
+//    build job: 'Continuous/install-windows'
+//}
+//test["install opensuse"] = {
+//    build job: 'Continuous/install-opensuse'
+//}
+test["install esxi 6.0"] = {
+    build job: 'Continuous/install-esxi6'
+}
+node {
+    stage('running release functional test'){
+        sh "echo running release functional test starts here"
+        git url:'https://github.com/RackHD/on-http'
+        git url:'https://github.com/RackHD/on-dhcp-proxy'
+        git url:'https://github.com/RackHD/RackHD'
+        git url:'https://github.com/RackHD/on-tftp'
+        git url:'https://github.com/RackHD/on-taskgraph'
+        
+    }
+    stage("run tests"){
+     try {
+         parallel test
+     } catch(err) {
+        throw err
+     }
+    }
+    stage('running release builds'){
+        sh "echo running release builds starts here"
+    }
+    stage('build release packages'){
+    parallel(
+    'build docker packages':{
+       
+    // Make the output directory.
+    sh "mkdir -p output"
+
+    // Write an useful file, which is needed to be archived.
+    writeFile file: "output/docker-build.txt", text: "This file is useful, need to archive it."
+
+    // Write an useless file, which is not needed to be archived.
+    writeFile file: "output/uselessfile.md", text: "This file is useless, no need to archive it."
+
+     // Archive the build output artifacts.
+    archiveArtifacts artifacts: 'output/*.txt', excludes: 'output/*.md'
+
+    },
+    'build debian packages':{
+      
+     sh "mkdir -p output"
+
+    // Write an useful file, which is needed to be archived.
+    writeFile file: "output/debian-build.txt", text: "This file is useful, need to archive it."
+
+    // Write an useless file, which is not needed to be archived.
+    writeFile file: "output/uselessfile.md", text: "This file is useless, no need to archive it."
+
+    archiveArtifacts artifacts: 'output/*.txt', excludes: 'output/*.md'
+
+    }
+    )
+    }
+}
