@@ -6,10 +6,13 @@ test["install CentOS"] = {
 test["install Ubnuntu"] = {
     build job: 'Continuous/install-ubuntu-14-04'
 }
-test["smoke test"] = {
+test["smoke test CIT"] = {
     build job: 'Continuous/Smoke_test_Cit'
-    sh "echo run smoke test CIT"
-    
+    sh "echo run smoke test CIT"    
+}
+test["smoke test FIT"] = {
+    build job: 'Continuous/Smoke_test_Fit'
+    sh "echo run smoke test FIT"    
 }
 test["Decommission nodes"] = {
     build job: 'Continuous/Decommission-nodes'
