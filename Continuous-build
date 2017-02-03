@@ -18,15 +18,15 @@ test["Decommission nodes"] = {
     build job: 'Continuous/Decommission-nodes'
     sh "echo run smoke test FIT"    
 }
-test["install Windows"] = {
-    build job: 'Continuous/install-windows'
-}
-test["install opensuse"] = {
-    build job: 'Continuous/install-opensuse'
-}
-test["install esxi 6.0"] = {
-    build job: 'Continuous/install-esxi6'
-}
+//test["install Windows"] = {
+//    build job: 'Continuous/install-windows'
+//}
+//test["install opensuse"] = {
+//    build job: 'Continuous/install-opensuse'
+//}
+//test["install esxi 6.0"] = {
+//    build job: 'Continuous/install-esxi6'
+//}
 node {
     stage('running release functional test'){
         sh "echo running release functional test starts here"
