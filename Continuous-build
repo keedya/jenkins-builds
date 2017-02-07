@@ -14,10 +14,10 @@ test["smoke test FIT"] = {
     build job: 'Continuous/Smoke_test_Fit'
     sh "echo run smoke test FIT"    
 }
-test["Decommission nodes"] = {
-    build job: 'Continuous/Decommission-nodes'
-    sh "echo run smoke test FIT"    
-}
+//test["Decommission nodes"] = {
+//    build job: 'Continuous/Decommission-nodes'
+//    sh "echo run smoke test FIT"    
+//}
 //test["install Windows"] = {
 //    build job: 'Continuous/install-windows'
 //}
