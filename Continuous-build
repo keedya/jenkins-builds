@@ -29,7 +29,12 @@ test["smoke test FIT"] = {
 //}
 node {
     stage('running release functional test'){
-        sh "echo running release functional test starts here" 
+        sh "echo running release functional test starts here"
+        git url:'https://github.com/RackHD/on-http'
+        git url:'https://github.com/RackHD/on-dhcp-proxy'
+        git url:'https://github.com/RackHD/RackHD'
+        git url:'https://github.com/RackHD/on-tftp'
+        git url:'https://github.com/RackHD/on-taskgraph'
     }
     stage("run tests"){
      try {
