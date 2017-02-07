@@ -3,7 +3,7 @@ def test = [:]
 test["install CentOS"] = {
     build job: 'Continuous/Install-CentOs-6.5'
 }
-test["install Ubnuntu"] = {
+test["install Ubuntu"] = {
     build job: 'Continuous/install-ubuntu-14-04'
 }
 test["smoke test CIT"] = {
